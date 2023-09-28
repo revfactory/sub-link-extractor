@@ -30,6 +30,10 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
 
+      - name: Import GPG Key
+        run: |
+          echo "${{ secrets.SIGNING_SECRET_KEY_RING_FILE }}" | base64 --decode | gpg --import --batch --yes
+
       - name: Publish package
         run: ./gradlew publish
         env:
