@@ -33,4 +33,4 @@ List<String> links = LinkExtractor.extractLinks("http://example.com");
 extractLinks 메소드는 IOException을 던질 수 있습니다. 적절한 예외 처리를 통해 네트워크 에러나 기타 문제를 핸들링하세요.
 
 ## 라이선스
-이 프로젝트는 MIT 라이선스 하에 배포됩니다.
+이 프로젝트는 [Apache 2.0](LICENSE) 라이선스 하에 배포됩니다.
