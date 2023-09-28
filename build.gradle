@@ -18,3 +18,36 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            pom {
+                name = 'sub-link-extractor'
+                description = 'sub-link-extractor'
+                url = 'https://github.com/revfactory/sub-link-extractor'
+                licenses {
+                    license {
+                        name = 'The MIT License'
+                        url = 'http://opensource.org/licenses/MIT'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'revfactory'
+                        name = 'revfactory'
+                        email = 'revfactory@gmail.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/revfactory/sub-link-extractor.git'
+                    developerConnection = 'scm:git:ssh://github.com/revfactory/sub-link-extractor.git'
+                    url = 'https://github.com/revfactory/sub-link-extractor'
+                }
+            }
+        }
+    }
+}
+

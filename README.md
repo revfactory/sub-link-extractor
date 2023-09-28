@@ -1,4 +1,4 @@
-# LinkExtractor Library
+# sub-link-extractor
 
 `LinkExtractor`는 주어진 웹페이지에서 모든 링크를 추출하는 Java 라이브러리입니다. 이 라이브러리는 JSoup를 사용하여 HTML을 파싱합니다.
 
