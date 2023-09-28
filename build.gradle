@@ -30,8 +30,8 @@ publishing {
                 url = 'https://github.com/revfactory/sub-link-extractor'
                 licenses {
                     license {
-                        name = 'The MIT License'
-                        url = 'http://opensource.org/licenses/MIT'
+                        name = 'Apache 2.0 License'
+                        url = 'https://opensource.org/license/apache-2-0/'
                     }
                 }
                 developers {
