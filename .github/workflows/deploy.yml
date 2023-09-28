@@ -32,7 +32,9 @@ jobs:
 
       - name: Import GPG Key
         run: |
-          echo "${{ secrets.GPG_PRIVATE_KEY }}" | base64 --decode | gpg --import --batch --yes
+          echo "${{ secrets.GPG_PRIVATE_KEY }}" | Out-File -Encoding utf8 "private-key.asc.base64"
+          Get-Content "private-key.asc.base64" | base64 -d | Out-File -Encoding utf8 "private-key.asc"
+          gpg --import --batch --yes "private-key.asc"
 
       - name: Publish package
         run: ./gradlew publish
