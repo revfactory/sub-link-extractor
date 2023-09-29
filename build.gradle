@@ -50,13 +50,13 @@ publishing {
                 }
             }
         }
-        repositories {
-            maven {
-                url 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
-                credentials {
-                    username project.findProperty("sonatypeUsername") ?: System.getenv("SONATYPE_USERNAME")
-                    password project.findProperty("sonatypePassword") ?: System.getenv("SONATYPE_PASSWORD")
-                }
+    }
+    repositories {
+        maven {
+            url 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
+            credentials {
+                username project.findProperty("sonatypeUsername") ?: System.getenv("SONATYPE_USERNAME")
+                password project.findProperty("sonatypePassword") ?: System.getenv("SONATYPE_PASSWORD")
             }
         }
     }
