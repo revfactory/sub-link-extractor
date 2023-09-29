@@ -21,6 +21,11 @@ test {
     useJUnitPlatform()
 }
 
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
 publishing {
     publications {
         mavenJava(MavenPublication) {
@@ -64,7 +69,10 @@ publishing {
 
 signing {
     useGpgCmd()
-    useInMemoryPgpKeys(findProperty("signing.keyId"), findProperty("signing.secretKeyRingFile"), findProperty("signing.password"))
+    if (project.hasProperty("signing.secretKeyRingFile")) {
+        useInMemoryPgpKeys(findProperty("signing.keyId"), findProperty("signing.secretKeyRingFile"), findProperty("signing.password"))
+    }
+    sign publishing.publications.mavenJava
 }
 
 tasks.withType(Sign) {
