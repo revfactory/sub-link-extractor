@@ -21,11 +21,17 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
 
+      - name: Import GPG key
+        run: |
+          echo "${{ secrets.SIGNING_SECRET_KEY_RING_FILE }}" | base64 --decode > ./secring.gpg
+        env:
+          SIGNING_SECRET_KEY_RING_FILE: ${{ secrets.SIGNING_SECRET_KEY_RING_FILE_BASE64 }}
+
       - name: Publish to Maven Central
         run: ./gradlew publish --info
         env:
           SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
           SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
           SIGNING_KEY_ID: ${{ secrets.SIGNING_KEY_ID }}
-          SIGNING_SECRET_KEY_RING_FILE: ${{ secrets.SIGNING_SECRET_KEY_RING_FILE }}
+          SIGNING_SECRET_KEY_RING_FILE: ${{ github.workspace }}/secring.gpg
           SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
