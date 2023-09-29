@@ -1,4 +1,4 @@
-package kr.revfactory.utils;
+package io.github.revfactory;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
