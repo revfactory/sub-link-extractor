@@ -30,48 +30,25 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
-
-            pom {
-                name = 'sub-link-extractor'
-                description = 'sub-link-extractor'
-                url = 'https://github.com/revfactory/sub-link-extractor'
-                licenses {
-                    license {
-                        name = 'Apache 2.0 License'
-                        url = 'https://opensource.org/license/apache-2-0/'
-                    }
-                }
-                developers {
-                    developer {
-                        id = 'revfactory'
-                        name = 'revfactory'
-                        email = 'revfactory@gmail.com'
-                    }
-                }
-                scm {
-                    connection = 'scm:git:git://github.com/revfactory/sub-link-extractor.git'
-                    developerConnection = 'scm:git:ssh://github.com/revfactory/sub-link-extractor.git'
-                    url = 'https://github.com/revfactory/sub-link-extractor'
-                }
-            }
         }
     }
+
     repositories {
         maven {
-            url 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
+            name = 'OSSRH'
+            url = uri('https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/')
             credentials {
-                username project.findProperty("sonatypeUsername") ?: System.getenv("SONATYPE_USERNAME")
-                password project.findProperty("sonatypePassword") ?: System.getenv("SONATYPE_PASSWORD")
+                username project.findProperty('ossrhUsername')
+                password project.findProperty('ossrhPassword')
             }
         }
     }
 }
 
 signing {
-    useGpgCmd()
-    if (project.hasProperty("signing.secretKeyRingFile")) {
-        useInMemoryPgpKeys(findProperty("signing.keyId"), findProperty("signing.secretKeyRingFile"), findProperty("signing.password"))
-    }
+    useInMemoryPgpKeys(findProperty("signing.keyId") ?: System.getenv('SIGNING_KEY_ID'),
+            findProperty("signing.secretKeyRingFile") ?: System.getenv('SIGNING_SECRET_KEY_RING_FILE'),
+            findProperty("signing.password") ?: System.getenv('SIGNING_PASSWORD'))
     sign publishing.publications.mavenJava
 }
 
