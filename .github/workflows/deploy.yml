@@ -23,9 +23,13 @@ jobs:
 
       - name: Import GPG key
         run: |
-          echo "${{ secrets.SIGNING_SECRET_KEY_RING_FILE }}" | base64 --decode > ./secring.gpg
+          mkdir -p $HOME/.gnupg
+          echo "${{ secrets.SIGNING_SECRET_KEY_RING_FILE }}" | base64 --decode | gpg --import --batch --yes --no-tty
         env:
           SIGNING_SECRET_KEY_RING_FILE: ${{ secrets.SIGNING_SECRET_KEY_RING_FILE_BASE64 }}
+
+      - name: List GPG keys
+        run: gpg --list-secret-keys
 
       - name: Publish to Maven Central
         run: ./gradlew publish --info
