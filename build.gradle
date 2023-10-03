@@ -6,6 +6,7 @@ plugins {
 
 group = 'io.github.revfactory'
 version = '0.1.1'
+rootProject.description = 'Extract Sub Links from url.'
 
 repositories {
     mavenCentral()
