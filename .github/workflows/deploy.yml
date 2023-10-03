@@ -23,10 +23,10 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Import GPG Key
-        uses: crazy-max/ghaction-import-gpg@v6.0.0
-        with:
-          gpg_private_key: ${{ secrets.SIGNING_KEY }}
-          passphrase: ${{ secrets.SIGNING_PASSWORD }}
+        run: |
+          echo "${{ secrets.SIGNING_KEY }}" | Out-File -Encoding utf8 "private-key.asc.base64"
+          Get-Content "private-key.asc.base64" | base64 -d | Out-File -Encoding utf8 "private-key.asc"
+          gpg --import --batch --yes "private-key.asc"
 
       - name: Publish to Maven Central
         run: ./gradlew publish --info
