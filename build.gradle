@@ -26,10 +26,44 @@ java {
     withSourcesJar()
 }
 
+ext.admin = System.getenv("OSSRH_USERNAME")
+
+signing {
+    required { admin }
+    def signingKey = findProperty("signingKey") ?: System.getenv('SIGNING_KEY')
+    def signingPassword = findProperty("signingPassword") ?: System.getenv('SIGNING_PASSWORD')
+    useInMemoryPgpKeys(signingKey, signingPassword)
+    sign publishing.publications.mavenJava
+}
+
 publishing {
     publications {
         mavenJava(MavenPublication) {
             from components.java
+            pom {
+                name = 'SubLinkExtractor'
+                description = rootProject.description
+                url = 'https://github.com/revfactory/sub-link-extractor'
+                licenses {
+                    license {
+                        name = 'Apache 2.0 License'
+                        url = 'https://github.com/revfactory/sub-link-extractor/blob/main/LICENSE'
+                        distribution = 'repo'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'revfactory'
+                        name = 'Minho Hwang'
+                        email = 'revfactory@gmail.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/revfactory/sub-link-extractor.git'
+                    developerConnection = 'scm:git:ssh://git@github.com:revfactory/sub-link-extractor.git'
+                    url = 'https://github.com/revfactory/sub-link-extractor'
+                }
+            }
         }
     }
 
@@ -45,9 +79,3 @@ publishing {
     }
 }
 
-signing {
-    def signingKey = findProperty("signingKey") ?: System.getenv('SIGNING_KEY')
-    def signingPassword = findProperty("signingPassword") ?: System.getenv('OSSRH_PASSWORD')
-    useInMemoryPgpKeys(signingKey, signingPassword)
-    sign publishing.publications.mavenJava
-}
