@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+@Deprecated
 public class LinkExtractor {
     public static List<String> extractLinks(String sourceUrl) throws IOException {
         List<String> links = new ArrayList<>();

@@ -16,6 +16,7 @@ dependencies {
     implementation 'org.jsoup:jsoup:1.15.3'
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.mockito:mockito-core:5.5.0'
 }
 
 test {
@@ -28,6 +29,10 @@ java {
 }
 
 ext.admin = System.getenv("OSSRH_USERNAME")
+
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
+
 
 signing {
     required { admin }
