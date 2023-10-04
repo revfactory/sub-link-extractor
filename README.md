@@ -7,15 +7,15 @@ The `DefaultLinkExtractor` is a Java library designed to extract all the links f
 For those using Gradle, add the following to your `build.gradle` file:
 
 ```gradle
-implementation 'com.mylib:linkextractor:0.1.0'
+implementation 'io.github.revfactory:sub-link-extractor:0.1.0'
 ```
 
 For Maven users, add the following to your `pom.xml`:
 ```xml
 <dependency>
-    <groupId>com.mylib</groupId>
-    <artifactId>linkextractor</artifactId>
-    <version>1.0.0</version>
+    <groupId>io.github.revfactory</groupId>
+    <artifactId>sub-link-extractor</artifactId>
+    <version>0.1.0</version>
 </dependency>
 ```
 
