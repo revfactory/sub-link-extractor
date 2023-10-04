@@ -22,12 +22,13 @@ For Maven users, add the following to your `pom.xml`:
 ## Usage
 
 ```java
-import com.mylib.DefaultLinkExtractor;
+import io.github.revfactory.LinkExtractorStrategy;
+import io.github.revfactory.DefaultLinkExtractor;
 
 // ...
 
 LinkExtractorStrategy extractor = new DefaultLinkExtractor(1500);  // 1.5 second delay
-List<String> links = extractor.extractLinks("http://example.com");
+List<String> links = extractor.extractLinks("http://example.com/docs");
 ```
 Remember, the library can also be customized using different strategies by implementing the `LinkExtractorStrategy` interface.
 
