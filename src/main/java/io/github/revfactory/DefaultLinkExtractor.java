@@ -43,10 +43,6 @@ public class DefaultLinkExtractor implements LinkExtractorStrategy {
                 continue;
             }
 
-            if (visitedLinks.contains(currentUrl) || isDisallowed(new URL(currentUrl).getPath(), disallowedPaths)) {
-                continue;
-            }
-
             try {
                 Thread.sleep(requestDelayMs);
                 Document document = connectAndParse(currentUrl);
@@ -54,7 +50,7 @@ public class DefaultLinkExtractor implements LinkExtractorStrategy {
 
                 for (var element : elements) {
                     String link = element.attr("abs:href");  // Automatically converts relative paths to absolute paths
-                    if (link.startsWith(base) && !visitedLinks.contains(link)) {
+                    if (link.startsWith(sourceUrl) && !visitedLinks.contains(link)) {
                         toVisit.add(link);
                     }
                 }
@@ -106,6 +102,14 @@ public class DefaultLinkExtractor implements LinkExtractorStrategy {
         URL url = new URL(targetUrl);
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()))) {
             return reader.lines().collect(Collectors.toList());
+        }
+    }
+
+    public static void main(String[] args) throws IOException, InterruptedException {
+        LinkExtractorStrategy extractor = new DefaultLinkExtractor(100);  // 0.1 second delay
+        List<String> links = extractor.extractLinks("https://tailwindcss.com/docs");
+        for (String link : links) {
+            System.out.println(link);
         }
     }
 }

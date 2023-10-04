@@ -28,11 +28,13 @@ public class DefaultLinkExtractorTest {
         String htmlContent = "<!DOCTYPE html><html><head><title>Test Page</title></head><body>"
                 + "<a href=\"https://www.example.com/page1\">Link 1</a>"
                 + "<a href=\"https://www.example.com/page2\">Link 2</a>"
+                + "<a href=\"https://www.example.com/docs/sub-page1\">Link 1</a>"
+                + "<a href=\"https://www.example.com/docs/sub-page2\">Link 1</a>"
                 + "<a href=\"https://www.example2.com\">External Link</a>"
                 + "<a href=\"/page3\">Relative Link</a>"
                 + "</body></html>";
 
-        when(mockDocument.select("a[href]")).thenReturn(Jsoup.parse(htmlContent, "https://www.example.com").select("a[href]"));
+        when(mockDocument.select("a[href]")).thenReturn(Jsoup.parse(htmlContent, "https://www.example.com/docs").select("a[href]"));
     }
 
     @Test
@@ -44,10 +46,12 @@ public class DefaultLinkExtractorTest {
             }
         };
 
-        List<String> links = extractor.extractLinks("https://www.example.com");
-        assertTrue(links.contains("https://www.example.com/page1"));
-        assertTrue(links.contains("https://www.example.com/page2"));
+        List<String> links = extractor.extractLinks("https://www.example.com/docs");
+        assertFalse(links.contains("https://www.example.com/page1"));
+        assertFalse(links.contains("https://www.example.com/page2"));
+        assertTrue(links.contains("https://www.example.com/docs/sub-page1"));
+        assertTrue(links.contains("https://www.example.com/docs/sub-page2"));
         assertFalse(links.contains("https://www.example2.com"));  // 외부 링크는 제외
-        assertTrue(links.contains("https://www.example.com/page3"));  // 상대 링크가 절대 링크로 변환되어야 함
+        assertFalse(links.contains("https://www.example.com/page3"));  // 상대 링크가 절대 링크로 변환되어야 함
     }
 }
