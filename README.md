@@ -1,16 +1,16 @@
 # sub-link-extractor
 
-`LinkExtractor`는 주어진 웹페이지에서 모든 링크를 추출하는 Java 라이브러리입니다. 이 라이브러리는 JSoup를 사용하여 HTML을 파싱합니다.
+The `DefaultLinkExtractor` is a Java library designed to extract all the links from a given webpage. It utilizes JSoup to parse the HTML content.
 
-## 설치 방법
+## Installation
 
-Gradle을 사용하는 경우, `build.gradle` 파일에 다음을 추가하세요:
+For those using Gradle, add the following to your `build.gradle` file:
 
 ```gradle
-implementation 'com.mylib:linkextractor:1.0.0'
+implementation 'com.mylib:linkextractor:0.1.0'
 ```
 
-Maven을 사용하는 경우, pom.xml 파일에 다음을 추가하세요:
+For Maven users, add the following to your `pom.xml`:
 ```xml
 <dependency>
     <groupId>com.mylib</groupId>
@@ -19,18 +19,21 @@ Maven을 사용하는 경우, pom.xml 파일에 다음을 추가하세요:
 </dependency>
 ```
 
-## 사용 방법
+## Usage
 
 ```java
-import com.mylib.LinkExtractor;
+import com.mylib.DefaultLinkExtractor;
 
 // ...
 
-List<String> links = LinkExtractor.extractLinks("http://example.com");
+LinkExtractorStrategy extractor = new DefaultLinkExtractor(1500);  // 1.5 second delay
+List<String> links = extractor.extractLinks("http://example.com");
 ```
+Remember, the library can also be customized using different strategies by implementing the `LinkExtractorStrategy` interface.
 
-## 예외 처리
-extractLinks 메소드는 IOException을 던질 수 있습니다. 적절한 예외 처리를 통해 네트워크 에러나 기타 문제를 핸들링하세요.
 
-## 라이선스
-이 프로젝트는 [Apache 2.0](LICENSE) 라이선스 하에 배포됩니다.
+## Error Handling
+The `extractLinks` method can throw an `IOException`. Ensure you have proper error handling to manage any network issues or other related problems.
+
+## Licensing
+This project is distributed under the [Apache 2.0](LICENSE) license.

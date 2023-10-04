@@ -108,12 +108,4 @@ public class DefaultLinkExtractor implements LinkExtractorStrategy {
             return reader.lines().collect(Collectors.toList());
         }
     }
-
-    public static void main(String[] args) throws IOException, InterruptedException {
-        LinkExtractorStrategy extractor = new DefaultLinkExtractor(100);  // 0.1 second delay
-        List<String> links = extractor.extractLinks("https://nextjs.org/docs");
-        for (String link : links) {
-            System.out.println(link);
-        }
-    }
 }
